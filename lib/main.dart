@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:katalog/menu.dart';
 import 'package:katalog/search_page.dart';
+import 'package:katalog/trolley_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -52,7 +53,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedindex = 0;
   int _currentIndex = 0;
-  final List<Widget> mainMenu = const [MenuPage(), SearchPage()];
+  final List<Widget> mainMenu = [const MenuPage(), TrolleyPage()];
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -72,27 +73,17 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           TextButton.icon(
               onPressed: () {
-                 setState(() {
-                  _currentIndex = 1;
-                });
+                 Route route =
+                        MaterialPageRoute(builder: (context) => TrolleyPage());
+                    Navigator.push(context, route);
               },
               style: const ButtonStyle(foregroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 255, 255, 255)) ),
-              icon: const Icon(Icons.search),
+              icon: const Icon(Icons.shopping_cart),
               label: const Text('')),
         ],
       ),
       body: mainMenu[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped, // new
-        currentIndex: _currentIndex, // new
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Menu",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'cari')
-        ],
-      ),
+      
     );
   }
 }
